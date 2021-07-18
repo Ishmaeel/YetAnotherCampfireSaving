@@ -1,5 +1,6 @@
-local campfire_radius = 15
 local campfire_saving = true
+local campfire_radius = 15
+local base_radius = 25
 
 function on_game_start()
     bind_campfire.check_no_nearby_campfire = check_no_nearby_campfire
@@ -11,15 +12,17 @@ function on_before_save_input(flags, typ, text)
     if (alife_storage_manager.get_state().enable_campfire_mode or campfire_saving) and (level_weathers.valid_levels[level.name()]) then
         local error_message = nil
 
-        local campfire_nearby = bind_campfire.get_nearby_campfire(campfire_radius, true)
+        local nearby_campfire = bind_campfire.get_nearby_campfire(campfire_radius, true)
 
-        if not campfire_nearby then
-            error_message = strformat(game.translate_string("st_ui_no_save_campfire"), text)
-        elseif not campfire_nearby:is_on() then
+        if not nearby_campfire then
+            error_message = strformat(game.translate_string("st_ui_no_save_campfire_base"), text)
+        elseif not nearby_campfire:is_on() then
             error_message = strformat(game.translate_string("st_ui_no_save_campfire_unlit"), text)
         end
 
-        if error_message then
+        local within_base = is_within_friendly_base()
+
+        if error_message and not within_base then
             actor_menu.set_msg(1, error_message, 4)
             exec_console_cmd("main_menu off")
             flags.ret = true
@@ -27,7 +30,31 @@ function on_before_save_input(flags, typ, text)
     end
 end
 
-function check_no_nearby_campfire()
+function is_within_friendly_base()
+    local friendly_bases = get_friendly_bases()
+
+    for id, smart in pairs(friendly_bases) do
+        if smart.dist_to_actor < base_radius and surge_manager.actor_in_cover() then
+            return true
+        end
+    end
+
     return false
 end
 
+function get_friendly_bases()
+    local friendly_bases = {}
+    local community = gameplay_disguise.get_default_comm()
+
+    for id, smart in pairs(SIMBOARD.smarts_by_names) do
+        if smart.is_on_actor_level and smart.props.base > 0 and smart.props.surge > 0 and smart.props[community] > 0 then
+            table.insert(friendly_bases, smart)
+        end
+    end
+
+    return friendly_bases
+end
+
+function check_no_nearby_campfire()
+    return false -- prevent vanilla campfire checking function from interfering.
+end

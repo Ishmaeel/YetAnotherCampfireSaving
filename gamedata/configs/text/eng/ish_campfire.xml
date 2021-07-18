@@ -3,6 +3,9 @@
 	<string id="st_ui_no_save_campfire_baby">
 		<text>You can only %s near campfires, baby.</text>
 	</string>
+	<string id="st_ui_no_save_campfire_base">
+		<text>You can only %s near campfires and in friendly bases.</text>
+	</string>
 	<string id="st_ui_no_save_campfire_unlit">
 		<text>The campfire must be lit before you can %s.</text>
 	</string>
