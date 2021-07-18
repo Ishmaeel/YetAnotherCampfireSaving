@@ -1,18 +1,24 @@
 local campfire_saving = true
 local campfire_radius = 15
 local base_radius = 50
+local token_granted = time_infinite
+local token_downtime = 1000 * 60 * 5 -- Five minutes
+local token_redeemed = false
 
 function on_game_start()
     bind_campfire.check_no_nearby_campfire = check_no_nearby_campfire
 
     RegisterScriptCallback("on_before_save_input", on_before_save_input)
     RegisterScriptCallback("on_option_change", on_option_change)
+    RegisterScriptCallback("actor_on_first_update", actor_on_first_update)
+    RegisterScriptCallback("on_console_execute", on_console_execute)
 
     on_option_change()
 end
 
 function on_before_save_input(flags, typ, text)
     if campfire_saving and level_weathers.valid_levels[level.name()] then
+        token_redeemed = false
         local error_message = nil
 
         local nearby_campfire = bind_campfire.get_nearby_campfire(campfire_radius, true)
@@ -26,9 +32,14 @@ function on_before_save_input(flags, typ, text)
         local within_base = is_within_friendly_base()
 
         if error_message and not within_base then
-            actor_menu.set_msg(1, error_message, 4)
-            exec_console_cmd("main_menu off")
-            flags.ret = true
+            token_redeemed = redeem_token()
+            if token_redeemed then
+                return
+            else
+                actor_menu.set_msg(1, error_message, 4)
+                exec_console_cmd("main_menu off")
+                flags.ret = true
+            end
         end
     end
 end
@@ -70,4 +81,41 @@ function on_option_change()
     if ui_mcm then
         campfire_saving = ui_mcm.get("yasc/enableCampfireSaving")
     end
+end
+
+function actor_on_first_update()
+    extend_token_downtime()
+end
+
+function on_console_execute(cmd)
+    if cmd ~= "save" then
+        return
+    end
+
+    if token_redeemed then
+        switch_to_rl_mode()
+    else
+        extend_token_downtime()
+    end
+end
+
+function extend_token_downtime()
+    token_granted = time_global() + token_downtime
+end
+
+function has_token()
+    local time_remaining = token_granted - time_global()
+    return time_remaining <= 0
+end
+
+function redeem_token()
+    if has_token() then
+        return key_state(DIK_keys.DIK_LSHIFT) ~= 0 or key_state(DIK_keys.DIK_RSHIFT) ~= 0
+    end
+
+    return false
+end
+
+function switch_to_rl_mode()
+    exec_console_cmd("quit")
 end
