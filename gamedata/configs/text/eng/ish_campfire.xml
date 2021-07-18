@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<string_table>
+	<string id="st_ui_no_save_campfire_baby">
+		<text>You can only %s near campfires, baby.</text>
+	</string>
+	<string id="st_ui_no_save_campfire_unlit">
+		<text>The campfire must be lit before you can %s.</text>
+	</string>
+</string_table>
+

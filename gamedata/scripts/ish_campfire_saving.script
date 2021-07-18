@@ -1,0 +1,33 @@
+local campfire_radius = 15
+local campfire_saving = true
+
+function on_game_start()
+    bind_campfire.check_no_nearby_campfire = check_no_nearby_campfire
+
+    RegisterScriptCallback("on_before_save_input", on_before_save_input)
+end
+
+function on_before_save_input(flags, typ, text)
+    if (alife_storage_manager.get_state().enable_campfire_mode or campfire_saving) and (level_weathers.valid_levels[level.name()]) then
+        local error_message = nil
+
+        local campfire_nearby = bind_campfire.get_nearby_campfire(campfire_radius, true)
+
+        if not campfire_nearby then
+            error_message = strformat(game.translate_string("st_ui_no_save_campfire"), text)
+        elseif not campfire_nearby:is_on() then
+            error_message = strformat(game.translate_string("st_ui_no_save_campfire_unlit"), text)
+        end
+
+        if error_message then
+            actor_menu.set_msg(1, error_message, 4)
+            exec_console_cmd("main_menu off")
+            flags.ret = true
+        end
+    end
+end
+
+function check_no_nearby_campfire()
+    return false
+end
+
