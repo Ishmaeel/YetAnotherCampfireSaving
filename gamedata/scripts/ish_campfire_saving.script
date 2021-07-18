@@ -1,6 +1,6 @@
 local campfire_saving = true
 local campfire_radius = 15
-local base_radius = 25
+local base_radius = 50
 
 function on_game_start()
     bind_campfire.check_no_nearby_campfire = check_no_nearby_campfire
@@ -50,11 +50,15 @@ function get_friendly_bases()
         if smart.is_on_actor_level and smart.props.base > 0 and smart.props.surge > 0 and smart.props[community] > 0 then
             table.insert(friendly_bases, smart)
         end
+
+        if community == "monolith" and smart:name() == "pri_monolith" then
+            table.insert(friendly_bases, smart) -- Why? Because for some reason, "Monolith Base" is not a Monolith base.
+        end
     end
 
     return friendly_bases
 end
 
 function check_no_nearby_campfire()
-    return false -- prevent vanilla campfire checking function from interfering.
+    return false -- Prevent vanilla campfire checking function from interfering.
 end
