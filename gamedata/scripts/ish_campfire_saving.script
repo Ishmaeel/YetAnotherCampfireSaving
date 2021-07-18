@@ -6,6 +6,9 @@ function on_game_start()
     bind_campfire.check_no_nearby_campfire = check_no_nearby_campfire
 
     RegisterScriptCallback("on_before_save_input", on_before_save_input)
+    RegisterScriptCallback("on_option_change", on_option_change)
+
+    on_option_change()
 end
 
 function on_before_save_input(flags, typ, text)
@@ -61,4 +64,10 @@ end
 
 function check_no_nearby_campfire()
     return false -- Prevent vanilla campfire checking function from interfering.
+end
+
+function on_option_change()
+    if ui_mcm then
+        campfire_saving = ui_mcm.get("yasc/enableCampfireSaving")
+    end
 end

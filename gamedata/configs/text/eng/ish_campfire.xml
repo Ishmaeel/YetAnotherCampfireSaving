@@ -9,5 +9,17 @@
 	<string id="st_ui_no_save_campfire_unlit">
 		<text>The campfire must be lit before you can %s.</text>
 	</string>
+	<string id="ui_mcm_menu_yasc">
+		<text>YASC</text>
+	</string>
+	<string id="ui_mcm_yasc_title">
+		<text>Yet Another Campfire Saving</text>
+	</string>
+	<string id="ui_mcm_yasc_enableCampfireSaving">
+		<text>Enable Campfire Saving</text>
+	</string>
+	<string id="ui_mcm_yasc_enableCampfireSaving_desc">
+		<text>You will only be able to save near lit campfires and within friendly bases.</text>
+	</string>
 </string_table>
 
