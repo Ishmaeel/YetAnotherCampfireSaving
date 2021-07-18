@@ -12,7 +12,7 @@ function on_game_start()
 end
 
 function on_before_save_input(flags, typ, text)
-    if (alife_storage_manager.get_state().enable_campfire_mode or campfire_saving) and (level_weathers.valid_levels[level.name()]) then
+    if campfire_saving and level_weathers.valid_levels[level.name()] then
         local error_message = nil
 
         local nearby_campfire = bind_campfire.get_nearby_campfire(campfire_radius, true)
