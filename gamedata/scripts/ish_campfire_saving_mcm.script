@@ -4,7 +4,9 @@ function on_mcm_load()
         sh = true,
         gr = {
             {id = "title", type = "slide", link = "ui_options_slider_player", text = "ui_mcm_yasc_title", size = {512, 50}, spacing = 20},
-            {id = "enableCampfireSaving", type = "check", val = 1, def = true}
+            {id = "enableCampfireSaving", type = "check", val = 1, def = true},
+            {id = "enableNotifications", type = "check", val = 1, def = false},
+            {id = "isNotMommy", type = "check", val = 1, def = false}
         }
     }
 

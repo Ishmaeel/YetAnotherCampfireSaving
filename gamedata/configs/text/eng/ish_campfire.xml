@@ -21,5 +21,29 @@
 	<string id="ui_mcm_yasc_enableCampfireSaving_desc">
 		<text>You will only be able to save near lit campfires and within friendly bases.</text>
 	</string>
+	<string id="ui_mcm_yasc_enableNotifications">
+		<text>Enable Token Notifications</text>
+	</string>
+	<string id="ui_mcm_yasc_enableNotifications_desc">
+		<text>You will be notified of remaining time before you are granted a free save token.</text>
+	</string>
+	<string id="ui_mcm_yasc_isNotMommy">
+		<text>Not A Mommy</text>
+	</string>
+	<string id="ui_mcm_yasc_isNotMommy_desc">
+		<text>You identify as Daddy.</text>
+	</string>
+	<string id="mommy_true">
+		<text>Mommy</text>
+	</string>
+	<string id="mommy_false">
+		<text>Daddy</text>
+	</string>
+	<string id="token_pending">
+		<text>You will be granted a %s Token in %i seconds.</text>
+	</string>
+	<string id="token_granted">
+		<text>You have a %s Token. Press SHIFT-F5 to redeem.</text>
+	</string>
 </string_table>
 

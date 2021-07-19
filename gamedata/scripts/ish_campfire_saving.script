@@ -4,6 +4,10 @@ local base_radius = 50
 local token_granted = time_infinite
 local token_downtime = 1000 * 60 * 5 -- Five minutes
 local token_redeemed = false
+local notifications = false
+local notmommy = false
+
+local getstr = game.translate_string
 
 function on_game_start()
     bind_campfire.check_no_nearby_campfire = check_no_nearby_campfire
@@ -24,9 +28,9 @@ function on_before_save_input(flags, typ, text)
         local nearby_campfire = bind_campfire.get_nearby_campfire(campfire_radius, true)
 
         if not nearby_campfire then
-            error_message = strformat(game.translate_string("st_ui_no_save_campfire_base"), text)
+            error_message = strformat(getstr("st_ui_no_save_campfire_base"), text)
         elseif not nearby_campfire:is_on() then
-            error_message = strformat(game.translate_string("st_ui_no_save_campfire_unlit"), text)
+            error_message = strformat(getstr("st_ui_no_save_campfire_unlit"), text)
         end
 
         local within_base = is_within_friendly_base()
@@ -80,6 +84,8 @@ end
 function on_option_change()
     if ui_mcm then
         campfire_saving = ui_mcm.get("yasc/enableCampfireSaving")
+        notifications = ui_mcm.get("yasc/enableNotifications")
+        notmommy = ui_mcm.get("yasc/isNotMommy")
     end
 end
 
@@ -103,19 +109,40 @@ function extend_token_downtime()
     token_granted = time_global() + token_downtime
 end
 
-function has_token()
-    local time_remaining = token_granted - time_global()
-    return time_remaining <= 0
-end
-
 function redeem_token()
-    if has_token() then
-        return key_state(DIK_keys.DIK_LSHIFT) ~= 0 or key_state(DIK_keys.DIK_RSHIFT) ~= 0
+    local time_remaining = token_granted - time_global()
+    has_token = time_remaining <= 0
+
+    if has_token and (key_state(DIK_keys.DIK_LSHIFT) ~= 0 or key_state(DIK_keys.DIK_RSHIFT) ~= 0) then
+        return true
     end
+
+    send_notification(time_remaining)
 
     return false
 end
 
 function switch_to_rl_mode()
     exec_console_cmd("quit")
+end
+
+function send_notification(time_remaining)
+    if notifications then
+        local parent_type = getstr(string.format("mommy_%s", not notmommy))
+
+        if time_remaining > 0 then
+            news(getstr("token_pending"), parent_type, time_remaining / 1000)
+        else
+            news(getstr("token_granted"), parent_type)
+        end
+    end
+end
+
+function news(message, ...)
+    message = string.format(message, ...)
+    if db.actor then
+        db.actor:give_game_news("Campfire Saving", message, "ui_inGame2_PD_storonnik_ravnovesiya", 0, 5000, 0)
+    else
+        printf(message)
+    end
 end
