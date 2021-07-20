@@ -1,3 +1,5 @@
 *.lua
 *.bat
 *.zip
+*.ini
+*.txt

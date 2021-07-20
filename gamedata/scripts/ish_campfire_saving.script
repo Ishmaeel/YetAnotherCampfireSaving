@@ -65,7 +65,7 @@ function get_friendly_bases()
     local community = gameplay_disguise.get_default_comm()
 
     for id, smart in pairs(SIMBOARD.smarts_by_names) do
-        if smart.is_on_actor_level and smart.props.base > 0 and smart.props.surge > 0 and smart.props[community] > 0 then
+        if smart.is_on_actor_level and smart.props.base > 0 and smart.props[community] > 0 then
             table.insert(friendly_bases, smart)
         end
 
