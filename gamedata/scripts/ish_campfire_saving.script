@@ -9,6 +9,10 @@ local notmommy = false
 
 local getstr = game.translate_string
 
+bonus_bases = {}
+bonus_bases.pri_monolith = {monolith = true}
+bonus_bases.pri_a18_smart_terrain = {killer = true}
+
 function on_game_start()
     bind_campfire.check_no_nearby_campfire = check_no_nearby_campfire
 
@@ -69,12 +73,16 @@ function get_friendly_bases()
             ish_campfire_debug.draw_map_dot(smart)
         end
 
-        if smart.is_on_actor_level and smart.props.base > 0 and (smart.props[community] > 0 or smart.props.all > 0) then
-            table.insert(friendly_bases, smart)
-        end
+        if smart.is_on_actor_level then
+            -- Base is considered friendly if it's marked for player's faction or "all"
+            local is_safe = smart.props.base > 0 and (smart.props[community] > 0 or smart.props.all > 0)
 
-        if community == "monolith" and smart:name() == "pri_monolith" then
-            table.insert(friendly_bases, smart) -- Why? Because for some reason, "Monolith Base" is not a Monolith base.
+            -- Some bases are not properly marked for factions in vanilla configs, so we have an override table.  
+            is_safe = is_safe or (bonus_bases[smart:name()] and bonus_bases[smart:name()][community])
+
+            if is_safe then
+                table.insert(friendly_bases, smart)
+            end
         end
     end
 
