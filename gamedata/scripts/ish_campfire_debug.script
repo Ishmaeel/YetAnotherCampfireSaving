@@ -1,0 +1,62 @@
+function null_function()
+end
+
+function get_smart_name(smart)
+    key = smart:name()
+    title = game.translate_string(key)
+
+    if key == title then
+        key = "st_" .. key .. "_name"
+        title = game.translate_string(key)
+        if key == title then
+            title = "UNNAMED"
+        end
+    end
+
+    return title
+end
+
+function get_smart_props(self)
+    local name = get_smart_name(self) .. "\\n" .. self:name() .. "\\n"
+
+    local props = ""
+    if (self.props) then
+        for prop, val in pairs(self.props) do
+            if (val > 0) then
+                if prop == "base" or prop == "surge" then
+                    name = name .. prop .. " "
+                else
+                    props = props .. prop .. " = " .. val .. "\\n"
+                end
+            end
+        end
+    end
+
+    if self.dist_to_actor ~= math.huge then
+        props = props .. "\\n \\n" .. self.dist_to_actor
+    end
+
+    return name .. "\\n \\n" .. props
+end
+
+function draw_map_dot(smart)
+    if smart.props.base > 0 then
+        local community = gameplay_disguise.get_default_comm()
+        local base_icon = "alife_presentation_general_base_neutral"
+
+        if (smart.props[community] > 0 or smart.props.all > 0) then
+            base_icon = "alife_presentation_general_base_friend"
+        end
+
+        level.map_remove_object_spot(smart.id, "alife_presentation_general_base_neutral")
+        level.map_remove_object_spot(smart.id, "alife_presentation_general_base_friend")
+
+        level.map_add_object_spot(smart.id, base_icon, smart:get_smart_props())
+    end
+end
+
+smart_terrain.se_smart_terrain.show = null_function
+smart_terrain.se_smart_terrain.hide = null_function
+smart_terrain_warfare.smart_terrain.se_smart_terrain.show = null_function
+smart_terrain_warfare.smart_terrain.se_smart_terrain.hide = null_function
+smart_terrain.se_smart_terrain.get_smart_props = get_smart_props
