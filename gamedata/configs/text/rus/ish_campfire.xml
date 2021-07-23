@@ -21,6 +21,12 @@
 	<string id="ui_mcm_yasc_enableCampfireSaving_desc">
 		<text>Сохраниться можно будет только у зажженных костров и на дружественных базах.</text>
 	</string>
+	<string id="ui_mcm_yasc_allowNeutralBases">
+		<text>Включить нейтральные базы</text>
+	</string>
+	<string id="ui_mcm_yasc_allowNeutralBases_desc">
+		<text>Остальные фракции позволят вам сэкономить на своих базах в зависимости от вашей репутации.</text>
+	</string>
 	<string id="ui_mcm_yasc_enableNotifications">
 		<text>Включить уведомления о токенах</text>
 	</string>
@@ -33,7 +39,7 @@
 	<string id="ui_mcm_yasc_isNotMommy_desc">
 		<text>Вы идентифицируете себя как Папочка</text>
 	</string>
-    <string id="ui_mcm_yasc_isNotMommy_desc_alt">
+	<string id="ui_mcm_yasc_isNotMommy_desc_alt">
 		<text>Вы определяете себя как Папочка</text>
 	</string>
 	<string id="mommy_true">

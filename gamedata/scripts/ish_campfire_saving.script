@@ -5,7 +5,8 @@ local token_granted = time_infinite
 local token_downtime = 1000 * 60 * 5 -- Five minutes
 local token_redeemed = false
 local notifications = false
-local notmommy = false
+local not_mommy = false
+local neutral_bases = false
 
 local getstr = game.translate_string
 
@@ -68,17 +69,20 @@ function get_friendly_bases()
     local friendly_bases = {}
     local community = gameplay_disguise.get_default_comm()
 
-    for id, smart in pairs(SIMBOARD.smarts_by_names) do
+    for _, smart in pairs(SIMBOARD.smarts_by_names) do
         if ish_campfire_debug then
             ish_campfire_debug.draw_map_dot(smart)
         end
 
-        if smart.is_on_actor_level then
+        if smart.is_on_actor_level and smart.props.base > 0 then
             -- Base is considered friendly if it's marked for player's faction or "all"
-            local is_safe = smart.props.base > 0 and (smart.props[community] > 0 or smart.props.all > 0)
+            local is_safe = smart.props[community] > 0 or smart.props.all > 0
 
             -- Some bases are not properly marked for factions in vanilla configs, so we have an override table.  
             is_safe = is_safe or (bonus_bases[smart:name()] and bonus_bases[smart:name()][community])
+
+            -- Optional: Other factions may let you use their bases if you have good relations.
+            is_safe = is_safe or neutral_bases and is_base_neutral(smart, community)
 
             if is_safe then
                 table.insert(friendly_bases, smart)
@@ -89,6 +93,20 @@ function get_friendly_bases()
     return friendly_bases
 end
 
+function is_base_neutral(smart, community)
+    for _, faction in pairs(game_relations.factions_table) do
+        influence = smart.props[faction]
+        if influence > 0 then
+            local relation = relation_registry.community_relation(faction, community)
+            local goodwill = relation_registry.community_goodwill(faction, db.actor:id())
+            if relation + goodwill >= 0 then
+                return true
+            end
+        end
+    end
+    return false
+end
+
 function check_no_nearby_campfire()
     return false -- Prevent vanilla campfire checking function from interfering.
 end
@@ -97,7 +115,8 @@ function on_option_change()
     if ui_mcm then
         campfire_saving = ui_mcm.get("yasc/enableCampfireSaving")
         notifications = ui_mcm.get("yasc/enableNotifications")
-        notmommy = ui_mcm.get("yasc/isNotMommy")
+        not_mommy = ui_mcm.get("yasc/isNotMommy")
+        neutral_bases = ui_mcm.get("yasc/allowNeutralBases")
     end
 end
 
@@ -140,7 +159,7 @@ end
 
 function send_notification(time_remaining)
     if notifications then
-        local parent_type = getstr(string.format("mommy_%s", not notmommy))
+        local parent_type = getstr(string.format("mommy_%s", not not_mommy))
 
         if time_remaining > 0 then
             news(getstr("token_pending"), parent_type, time_remaining / 1000)

@@ -21,6 +21,12 @@
 	<string id="ui_mcm_yasc_enableCampfireSaving_desc">
 		<text>You will only be able to save near lit campfires and within friendly bases.</text>
 	</string>
+	<string id="ui_mcm_yasc_allowNeutralBases">
+		<text>Enable Neutral Bases</text>
+	</string>
+	<string id="ui_mcm_yasc_allowNeutralBases_desc">
+		<text>Other factions will allow you to save in their bases depending on your goodwill.</text>
+	</string>
 	<string id="ui_mcm_yasc_enableNotifications">
 		<text>Enable Token Notifications</text>
 	</string>
