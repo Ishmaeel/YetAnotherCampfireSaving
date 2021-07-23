@@ -3,7 +3,7 @@ name: Repack
 
 # Customize the contents of the Zip package here:
 env:
-  ZIP_CONTENTS: "*.txt gamedata -x ish_campfire_debug.script"
+  ZIP_CONTENTS: "*.txt gamedata -x *ish_campfire_debug.script"
 
 on:
   # Produces a "latest" package for push operations on the main branch.
