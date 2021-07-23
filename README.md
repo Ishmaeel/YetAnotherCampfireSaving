@@ -8,7 +8,7 @@ This is where **YACS™** steps in, with faction base support and emergency save
 
 ## Features
 
-* **You can now save within friendly bases**, as long as you are protected from emissions.
+* **You can now save within neutral and friendly bases**, as long as you are protected from emissions.
 * After five minutes of gameplay, you will be awarded a **Mommy Token** that allows you to quickly save and quit.
 * Campfires need to be lit before you can save. Carry matchboxes.
 * Nearby campfire detection radius is extended, so you can save without burning your feet.
@@ -23,6 +23,9 @@ Vanilla campfire saving mode does not allow you to save within safe bases. When 
 or a bed within the base to be able to save. YASC looks at the smart terrains list in vanilla configs and tries to determine if you are near a base
 location friendly to your character's faction. If you are in an enclosed base building that provides protection from emissions, you are allowed
 to save freely without a nearby campfire. Now you can save in Skadovsk before you unload your hard-earned loot at Owl's place.
+
+*Optional:* Other factions will allow you to save in their bases as long as you have neutral or good relations with them. As a Loner, you can now
+save in Freedom base if you haven't pissed them off.
 
 ### Mommy Token
 
