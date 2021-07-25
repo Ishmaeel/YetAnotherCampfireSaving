@@ -9,6 +9,7 @@ local not_mommy = false
 local neutral_bases = false
 
 local getstr = game.translate_string
+local silent = true
 
 bonus_bases = {}
 bonus_bases.pri_monolith = {monolith = true}
@@ -21,6 +22,7 @@ function on_game_start()
     RegisterScriptCallback("on_option_change", on_option_change)
     RegisterScriptCallback("actor_on_first_update", actor_on_first_update)
     RegisterScriptCallback("on_console_execute", on_console_execute)
+    RegisterScriptCallback("on_key_release", on_key_release)
 
     on_option_change()
 end
@@ -42,12 +44,14 @@ function on_before_save_input(flags, typ, text)
 
         if error_message and not within_base then
             token_redeemed = redeem_token()
-            if token_redeemed then
-                return
-            else
+
+            -- always prevent saving.
+            exec_console_cmd("main_menu off")
+            flags.ret = true
+
+            -- only show message if token is not redeemed.
+            if not token_redeemed then
                 actor_menu.set_msg(1, error_message, 4)
-                exec_console_cmd("main_menu off")
-                flags.ret = true
             end
         end
     end
@@ -136,11 +140,21 @@ function on_console_execute(cmd)
     end
 end
 
+function on_key_release(key)
+    if key == DIK_keys.DIK_F5 then
+        token_redeemed = redeem_token(silent)
+
+        if token_redeemed then
+            create_emergency_save()
+        end
+    end
+end
+
 function extend_token_downtime()
     token_granted = time_global() + token_downtime
 end
 
-function redeem_token()
+function redeem_token(suppress_notification)
     local time_remaining = token_granted - time_global()
     has_token = time_remaining <= 0
 
@@ -148,9 +162,15 @@ function redeem_token()
         return true
     end
 
-    send_notification(time_remaining)
+    if not suppress_notification then
+        send_notification(time_remaining)
+    end
 
     return false
+end
+
+function create_emergency_save()
+    exec_console_cmd(string.format("save %s - %ssave", (user_name() or "player"), get_parent_type()))
 end
 
 function switch_to_rl_mode()
@@ -159,7 +179,7 @@ end
 
 function send_notification(time_remaining)
     if notifications then
-        local parent_type = getstr(string.format("mommy_%s", not not_mommy))
+        local parent_type = get_parent_type()
 
         if time_remaining > 0 then
             news(getstr("token_pending"), parent_type, time_remaining / 1000)
@@ -167,6 +187,10 @@ function send_notification(time_remaining)
             news(getstr("token_granted"), parent_type)
         end
     end
+end
+
+function get_parent_type()
+    return getstr(string.format("mommy_%s", not not_mommy))
 end
 
 function news(message, ...)
