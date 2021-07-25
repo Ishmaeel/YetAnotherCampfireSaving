@@ -10,9 +10,9 @@
 		<text>Костер необходимо разжечь для %s</text>
 	</string>
 	<string id="ui_mcm_menu_yasc">
-		<text>YASC</text>
+		<text>YACS</text>
 	</string>
-	<string id="ui_mcm_yasc_title">
+	<string id="ui_mcm_yacs_title">
 		<text>Сохранения у костра</text>
 	</string>
 	<string id="ui_mcm_yasc_enableCampfireSaving">

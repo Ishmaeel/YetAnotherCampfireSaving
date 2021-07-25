@@ -10,9 +10,9 @@
 		<text>The campfire must be lit before you can %s.</text>
 	</string>
 	<string id="ui_mcm_menu_yasc">
-		<text>YASC</text>
+		<text>YACS</text>
 	</string>
-	<string id="ui_mcm_yasc_title">
+	<string id="ui_mcm_yacs_title">
 		<text>Yet Another Campfire Saving</text>
 	</string>
 	<string id="ui_mcm_yasc_enableCampfireSaving">

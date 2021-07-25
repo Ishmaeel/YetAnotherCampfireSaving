@@ -200,7 +200,7 @@ end
 function news(message, ...)
     message = string.format(message, ...)
     if db.actor then
-        db.actor:give_game_news(getstr("ui_mcm_yasc_title"), message, "ui_inGame2_PD_storonnik_ravnovesiya", 0, 5000, 0)
+        db.actor:give_game_news(getstr("ui_mcm_yacs_title"), message, "ui_inGame2_PD_storonnik_ravnovesiya", 0, 5000, 0)
     else
         printf(message)
     end

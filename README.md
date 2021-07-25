@@ -20,7 +20,7 @@ This is where **YACS™** steps in, with faction base support and emergency save
 ### Base Saving
 
 Vanilla campfire saving mode does not allow you to save within safe bases. When you come back home from a long day, you have too look for a campfire
-or a bed within the base to be able to save. YASC looks at the smart terrains list in vanilla configs and tries to determine if you are near a base
+or a bed within the base to be able to save. YACS looks at the smart terrains list in vanilla configs and tries to determine if you are near a base
 location friendly to your character's faction. If you are in an enclosed base building that provides protection from emissions, you are allowed
 to save freely without a nearby campfire. Now you can save in Skadovsk before you unload your hard-earned loot at Owl's place.
 
@@ -31,7 +31,7 @@ save in Freedom base if you haven't pissed them off.
 
 Free saving feature to accommodate players with limited or irregular screen time.
 If you have a kid/cat/dog/rock to take care of, you are a Mommy (or a Daddy) and you should be able to switch from hardcore
-stalker mode to hardcore mommy mode at a moment's notice. After five minutes of gameplay, YASC awards a free Mommy Token 
+stalker mode to hardcore mommy mode at a moment's notice. After five minutes of gameplay, YACS awards a free Mommy Token 
 (or a Daddy Token, configurable) which allows you to save and quit without a nearby campfire and let you attend Real Life™ issues without losing
 progress. Just hit <kbd>Shift</kbd> + <kbd>F5</kbd> and go stop your kid eating from the cat's litterbox.
 
