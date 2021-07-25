@@ -34,3 +34,5 @@ If you have a kid/cat/dog/rock to take care of, you are a Mommy (or a Daddy) and
 stalker mode to hardcore mommy mode at a moment's notice. After five minutes of gameplay, YASC awards a free Mommy Token 
 (or a Daddy Token, configurable) which allows you to save and quit without a nearby campfire and let you attend Real Life™ issues without losing
 progress. Just hit <kbd>Shift</kbd> + <kbd>F5</kbd> and go stop your kid eating from the cat's litterbox.
+
+Emergency saving feature is also supported in Agony Mode and Timer Mode, even when campfire saving is not active.
