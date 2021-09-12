@@ -31,7 +31,7 @@ function on_game_start()
     on_option_change()
 end
 
-function on_before_save_input(flags, typ, text)
+function on_before_save_input(flags, typ_, text)
     if campfire_saving and level_weathers.valid_levels[level.name()] then
         token_redeemed = false
         local error_message = nil

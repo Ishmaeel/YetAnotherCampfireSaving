@@ -45,6 +45,6 @@ new_globals = {
    "xr_effects"
 }
 ignore = {
-   "131/on_game_start",
-   "212/typ"
+   "_$",
+   "131/on_game_start"
 }
