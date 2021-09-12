@@ -1,5 +1,5 @@
 -- Yet Another Campfire Saving
--- Last modified: 2021.07.25
+-- Last modified: 2021.09.12
 -- https://github.com/Ishmaeel/YetAnotherCampfireSaving
 
 local campfire_saving = true
@@ -64,7 +64,7 @@ end
 function is_within_friendly_base()
     local friendly_bases = get_friendly_bases()
 
-    for id, smart in pairs(friendly_bases) do
+    for _, smart in pairs(friendly_bases) do
         if smart.dist_to_actor < base_radius and surge_manager.actor_in_cover() then
             return true
         end
@@ -86,7 +86,7 @@ function get_friendly_bases()
             -- Base is considered friendly if it's marked for player's faction or "all"
             local is_safe = smart.props[community] > 0 or smart.props.all > 0
 
-            -- Some bases are not properly marked for factions in vanilla configs, so we have an override table.  
+            -- Some bases are not properly marked for factions in vanilla configs, so we have an override table.
             is_safe = is_safe or (bonus_bases[smart:name()] and bonus_bases[smart:name()][community])
 
             -- Optional: Other factions may let you use their bases if you have good relations.
@@ -103,7 +103,7 @@ end
 
 function is_base_neutral(smart, community)
     for _, faction in pairs(game_relations.factions_table) do
-        influence = smart.props[faction]
+        local influence = smart.props[faction]
         if influence > 0 then
             local relation = relation_registry.community_relation(faction, community)
             local goodwill = relation_registry.community_goodwill(faction, db.actor:id())
@@ -160,7 +160,7 @@ end
 
 function redeem_token(suppress_notification)
     local time_remaining = token_granted - time_global()
-    has_token = time_remaining <= 0
+    local has_token = time_remaining <= 0
 
     if has_token and (key_state(DIK_keys.DIK_LSHIFT) ~= 0 or key_state(DIK_keys.DIK_RSHIFT) ~= 0) then
         return true
