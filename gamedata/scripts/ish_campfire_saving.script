@@ -1,7 +1,6 @@
 -- Yet Another Campfire Saving
--- Last modified: 2021.09.12
+-- Last modified: 2021.09.19
 -- https://github.com/Ishmaeel/YetAnotherCampfireSaving
-
 local campfire_saving = true
 local campfire_radius = 15
 local base_radius = 50
@@ -11,6 +10,8 @@ local token_redeemed = false
 local notifications = false
 local not_mommy = false
 local neutral_bases = false
+local enable_friendly_bosses = true
+local enable_neutral_bosses = true
 
 local getstr = game.translate_string
 local silent = true
@@ -18,6 +19,8 @@ local silent = true
 bonus_bases = {}
 bonus_bases.pri_monolith = {monolith = true}
 bonus_bases.pri_a18_smart_terrain = {killer = true}
+
+the_bawses = {zat_b18_noah = true, m_trader = true, m_lesnik = true}
 
 function on_game_start()
     bind_campfire.check_no_nearby_campfire = check_no_nearby_campfire
@@ -44,9 +47,13 @@ function on_before_save_input(flags, typ_, text)
             error_message = strformat(getstr("st_ui_no_save_campfire_unlit"), text)
         end
 
-        local within_base = is_within_friendly_base()
+        local within_safe_space = is_within_friendly_base()
 
-        if error_message and not within_base then
+        if not within_safe_space then
+            within_safe_space = is_with_friendly_boss()
+        end
+
+        if error_message and not within_safe_space then
             token_redeemed = redeem_token()
 
             -- always prevent saving.
@@ -113,6 +120,43 @@ function is_base_neutral(smart, community)
         end
     end
     return false
+end
+
+function is_with_friendly_boss()
+    if not enable_friendly_bosses or not surge_manager.actor_in_cover() then
+        return false
+    end
+
+    local boss_found = false
+
+    local function iterate_func(obj)
+        if obj:id() > 0 then
+            local section = obj:section()
+            if the_bawses[section] then
+                local boss_alive = obj:alive()
+                local boss_relation = game_relations.get_npcs_relation(obj, db.actor)
+
+                if d and d.news then
+                    local relationship = game_relations.game_relations_by_num[boss_relation]
+                    d.news("Boss found: %s - %s, %s", section, relationship, boss_alive and "alive" or "dead")
+                end
+
+                if not boss_alive then
+                    return true
+                end
+
+                if boss_relation == game_object.friend or (enable_neutral_bosses and boss_relation == game_object.neutral) then
+                    boss_found = true
+                end
+
+                return true
+            end
+        end
+    end
+
+    level.iterate_nearest(db.actor:position(), base_radius, iterate_func)
+
+    return boss_found
 end
 
 function check_no_nearby_campfire()
