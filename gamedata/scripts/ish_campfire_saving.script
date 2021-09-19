@@ -10,8 +10,8 @@ local token_redeemed = false
 local notifications = false
 local not_mommy = false
 local neutral_bases = false
-local enable_friendly_bosses = true
-local enable_neutral_bosses = true
+local enable_friendly_bosses = false
+local enable_neutral_bosses = false
 
 local getstr = game.translate_string
 local silent = true
@@ -169,6 +169,8 @@ function on_option_change()
         notifications = ui_mcm.get("yasc/enableNotifications")
         not_mommy = ui_mcm.get("yasc/isNotMommy")
         neutral_bases = ui_mcm.get("yasc/allowNeutralBases")
+        enable_friendly_bosses = ui_mcm.get("yasc/allowSanctuaries") >= 1
+        enable_neutral_bosses = ui_mcm.get("yasc/allowSanctuaries") >= 2
     end
 end
 

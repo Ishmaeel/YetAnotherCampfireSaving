@@ -27,6 +27,11 @@ to save freely without a nearby campfire. Now you can save in Skadovsk before yo
 *Optional:* Other factions will allow you to save in their bases as long as you have neutral or good relations with them. As a Loner, you can now
 save in Freedom base if you haven't pissed them off.
 
+### Sanctuary Saving
+
+There are some powerful individuals in the Zone and even though their places of residence do not technically count as "bases", they will offer you 
+shelter if they are not downright hostile. Offering two levels of difficulty.  
+
 ### Mommy Token
 
 Free saving feature to accommodate players with limited or irregular screen time.

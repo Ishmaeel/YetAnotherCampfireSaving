@@ -1,5 +1,5 @@
 function on_mcm_load()
-    op = {
+    local op = {
         id = "yasc",
         sh = true,
         gr = {
@@ -7,12 +7,11 @@ function on_mcm_load()
             {id = "title", type = "slide", link = "ui_options_slider_player", text = "ui_mcm_yacs_title", size = {512, 50}, spacing = 20},
             {id = "enableCampfireSaving", type = "check", val = 1, def = true},
             {id = "allowNeutralBases", type = "check", val = 1, def = false},
+            {id = "allowSanctuaries", type = "radio_h", val = 2, def = 0, content = {{0, "Sanctuaries_None"}, {1, "Sanctuaries_Friendly"}, {2, "Sanctuaries_Neutral"}}},
             {id = "enableNotifications", type = "check", val = 1, def = false},
             {id = "isNotMommy", type = "check", val = 1, def = false}
             -- LuaFormatter on
         }
-
     }
-
     return op
 end

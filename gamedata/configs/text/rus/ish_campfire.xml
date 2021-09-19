@@ -12,6 +12,15 @@
 	<string id="ui_mcm_menu_yasc">
 		<text>YACS</text>
 	</string>
+	<string id="ui_mcm_lst_Sanctuaries_None">
+		<text>Нет</text>
+	</string>
+	<string id="ui_mcm_lst_Sanctuaries_Friendly">
+		<text>Дружелюбный</text>
+	</string>
+	<string id="ui_mcm_lst_Sanctuaries_Neutral">
+		<text>Также нейтральный</text>
+	</string>
 	<string id="ui_mcm_yacs_title">
 		<text>Сохранения у костра</text>
 	</string>
@@ -27,6 +36,11 @@
 	<string id="ui_mcm_yasc_allowNeutralBases_desc">
 		<text>Остальные фракции позволят вам сэкономить на своих базах в зависимости от вашей репутации.</text>
 	</string>
+	<string id="ui_mcm_yasc_allowSanctuaries">
+		<text>Включите святыни</text>
+	</string>
+	<string id="ui_mcm_yasc_allowSanctuaries_desc">
+		<text>Понятия не имею, как это перевести, пожалуйста, помогите!</text>
 	<string id="ui_mcm_yasc_enableNotifications">
 		<text>Включить уведомления о токенах</text>
 	</string>

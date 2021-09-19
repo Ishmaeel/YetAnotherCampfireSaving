@@ -12,6 +12,15 @@
 	<string id="ui_mcm_menu_yasc">
 		<text>YACS</text>
 	</string>
+	<string id="ui_mcm_lst_Sanctuaries_None">
+		<text>Nope</text>
+	</string>
+	<string id="ui_mcm_lst_Sanctuaries_Friendly">
+		<text>Only Friendly</text>
+	</string>
+	<string id="ui_mcm_lst_Sanctuaries_Neutral">
+		<text>Friendly &amp; Neutral</text>
+	</string>
 	<string id="ui_mcm_yacs_title">
 		<text>Yet Another Campfire Saving</text>
 	</string>
@@ -26,6 +35,12 @@
 	</string>
 	<string id="ui_mcm_yasc_allowNeutralBases_desc">
 		<text>Other factions will allow you to save in their bases depending on your goodwill.</text>
+	</string>
+	<string id="ui_mcm_yasc_allowSanctuaries">
+		<text>Enable Sanctuaries</text>
+	</string>
+	<string id="ui_mcm_yasc_allowSanctuaries_desc">
+		<text>Certain influential individuals will allow you to save within their abodes if you are on good terms.</text>
 	</string>
 	<string id="ui_mcm_yasc_enableNotifications">
 		<text>Enable Token Notifications</text>

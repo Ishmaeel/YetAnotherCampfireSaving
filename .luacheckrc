@@ -1,4 +1,5 @@
---luacheck:ignore 131
+-- LuaFormatter off
+-- luacheck:ignore 131
 allow_defined_top = true
 max_line_length = 999
 new_globals = {
@@ -30,6 +31,7 @@ new_globals = {
    "level_weathers",
    "level",
    "on_game_start",
+   "on_mcm_load",
    "parse_list",
    "printf",
    "RegisterScriptCallback",
@@ -48,5 +50,7 @@ new_globals = {
 }
 ignore = {
    "_$",
-   "131/on_game_start"
+   "131/on_game_start",
+   "131/on_mcm_load"
 }
+-- LuaFormatter on
