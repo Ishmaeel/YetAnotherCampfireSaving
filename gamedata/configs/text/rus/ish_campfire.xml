@@ -41,6 +41,7 @@
 	</string>
 	<string id="ui_mcm_yasc_allowSanctuaries_desc">
 		<text>Понятия не имею, как это перевести, пожалуйста, помогите!</text>
+	</string>
 	<string id="ui_mcm_yasc_enableNotifications">
 		<text>Включить уведомления о токенах</text>
 	</string>
@@ -69,4 +70,3 @@
 		<text>Возможность %s сохранения предоставлена. Нажмите SHIFT-F5 для активации.</text>
 	</string>
 </string_table>
-
