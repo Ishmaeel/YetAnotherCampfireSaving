@@ -16,7 +16,7 @@
 		<text>Нет</text>
 	</string>
 	<string id="ui_mcm_lst_Sanctuaries_Friendly">
-		<text>Дружелюбный</text>
+		<text>Дружественный</text>
 	</string>
 	<string id="ui_mcm_lst_Sanctuaries_Neutral">
 		<text>Также нейтральный</text>
@@ -34,13 +34,13 @@
 		<text>Включить нейтральные базы</text>
 	</string>
 	<string id="ui_mcm_yasc_allowNeutralBases_desc">
-		<text>Остальные фракции позволят вам сэкономить на своих базах в зависимости от вашей репутации.</text>
+		<text>Остальные фракции позволят вам сохраниться на своих базах в зависимости от вашей репутации.</text>
 	</string>
 	<string id="ui_mcm_yasc_allowSanctuaries">
-		<text>Включите святыни</text>
+		<text>Включите убежища</text>
 	</string>
 	<string id="ui_mcm_yasc_allowSanctuaries_desc">
-		<text>Понятия не имею, как это перевести, пожалуйста, помогите!</text>
+		<text>Некоторые влиятельные люди позволят вам сохраниться в их жилищах если вы с ними в ладу.</text>
 	</string>
 	<string id="ui_mcm_yasc_enableNotifications">
 		<text>Включить уведомления о токенах</text>
