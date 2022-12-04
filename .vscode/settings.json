@@ -1,0 +1,33 @@
+{
+    "Lua.diagnostics.globals": [
+        "actor_menu",
+        "bind_campfire",
+        "d",
+        "db",
+        "DIK_keys",
+        "exec_console_cmd",
+        "game_object",
+        "game_relations",
+        "game",
+        "gameplay_disguise",
+        "ish_campfire_debug",
+        "key_state",
+        "level_weathers",
+        "level",
+        "printf",
+        "RegisterScriptCallback",
+        "relation_registry",
+        "SIMBOARD",
+        "smart_terrain_warfare",
+        "smart_terrain",
+        "strformat",
+        "surge_manager",
+        "time_global",
+        "time_infinite",
+        "ui_mcm",
+        "user_name"
+    ],
+    "Lua.diagnostics.disable": [
+        "lowercase-global"
+    ]
+}
