@@ -1,9 +1,11 @@
 -- Yet Another Campfire Saving
 -- Last modified: 2022.12.04
 -- https://github.com/Ishmaeel/YetAnotherCampfireSaving
+
 local campfire_saving = true
 local campfire_radius = 15
 local base_radius = 50
+local boss_radius = 10
 local token_granted = time_infinite
 local token_downtime = 1000 * 60 * 5 -- Five minutes
 local token_redeemed = false
@@ -20,7 +22,22 @@ bonus_bases = {}
 bonus_bases.pri_monolith = { monolith = true }
 bonus_bases.pri_a18_smart_terrain = { killer = true }
 
-the_bawses = { zat_b18_noah = true, m_trader = true, m_lesnik = true }
+function require_shelter()
+    return surge_manager.actor_in_cover()
+end
+
+function always_allow()
+    return true
+end
+
+function never_allow()
+    return false
+end
+
+the_bawses = {
+    zat_b18_noah = require_shelter, m_trader = require_shelter, m_lesnik = require_shelter,
+    trader_monolith_kbo = always_allow, mechanic_monolith_kbo = always_allow
+}
 
 function on_game_start()
     bind_campfire.check_no_nearby_campfire = check_no_nearby_campfire
@@ -50,7 +67,11 @@ function on_before_save_input(flags, typ_, text)
         local within_safe_space = is_within_friendly_base()
 
         if not within_safe_space then
-            within_safe_space = is_with_friendly_boss()
+            local evaluate_boss_safety = get_friendly_boss_safety_function()
+
+            if evaluate_boss_safety then
+                within_safe_space = evaluate_boss_safety()
+            end
         end
 
         if error_message and not within_safe_space then
@@ -122,12 +143,8 @@ function is_base_neutral(smart, community)
     return false
 end
 
-function is_with_friendly_boss()
-    if not enable_friendly_bosses or not surge_manager.actor_in_cover() then
-        return false
-    end
-
-    local boss_found = false
+function get_friendly_boss_safety_function()
+    local boss_safety_function = never_allow
 
     local function iterate_func(obj)
         if obj:id() > 0 then
@@ -141,22 +158,19 @@ function is_with_friendly_boss()
                     d.news("Boss found: %s - %s, %s", section, relationship, boss_alive and "alive" or "dead")
                 end
 
-                if not boss_alive then
+                if boss_alive and boss_relation == game_object.friend or (enable_neutral_bosses and boss_relation == game_object.neutral) then
+                    boss_safety_function = the_bawses[section]
                     return true
                 end
-
-                if boss_relation == game_object.friend or (enable_neutral_bosses and boss_relation == game_object.neutral) then
-                    boss_found = true
-                end
-
-                return true
             end
         end
     end
 
-    level.iterate_nearest(db.actor:position(), base_radius, iterate_func)
+    if enable_friendly_bosses then
+        level.iterate_nearest(db.actor:position(), boss_radius, iterate_func)
+    end
 
-    return boss_found
+    return boss_safety_function
 end
 
 function check_no_nearby_campfire()
