@@ -1,5 +1,5 @@
 -- Yet Another Campfire Saving
--- Last modified: 2021.10.20
+-- Last modified: 2022.12.04
 -- https://github.com/Ishmaeel/YetAnotherCampfireSaving
 local campfire_saving = true
 local campfire_radius = 15
@@ -17,10 +17,10 @@ local getstr = game.translate_string
 local silent = true
 
 bonus_bases = {}
-bonus_bases.pri_monolith = {monolith = true}
-bonus_bases.pri_a18_smart_terrain = {killer = true}
+bonus_bases.pri_monolith = { monolith = true }
+bonus_bases.pri_a18_smart_terrain = { killer = true }
 
-the_bawses = {zat_b18_noah = true, m_trader = true, m_lesnik = true}
+the_bawses = { zat_b18_noah = true, m_trader = true, m_lesnik = true }
 
 function on_game_start()
     bind_campfire.check_no_nearby_campfire = check_no_nearby_campfire
